@@ -1,0 +1,38 @@
+extends ../layout
+
+block content
+	.container
+			.row
+					table.table.table-hover.table-bordered.table-striped.table-sm
+							thead.thead-default
+									tr
+											th 用户名称
+											th 用户等级
+											th 注册日期
+											th 最后登录日期
+											th 操作
+							tbody
+									each user in users
+											tr(class='item-id-#{user._id}')
+													td=user.name
+													td=user.level
+													td=moment(user.meta.createDate).format("YYYY-MM-DD")
+													td=moment(user.lastSigninDate).format("YYYY-MM-DD")
+													td															
+															button.del.btn.btn-danger.btn-sm(type="button", data-id="#{user._id}",data-toggle='modal',data-target='#delConfirm') 删除
+	//- 方案二															
+	.container
+		#delConfirm.modal.fade
+			.modal-dialog
+				.modal-content
+					.modal-header
+						button.close(type='button',data-dismiss='modal')
+							span &times;
+						h3.modal-title 智能助手
+					.modal-body
+						p 确定删除吗？
+					.modal-footer
+						button#delConfirmbtnOK.btn.btn-primary(type='button') 确定
+						button.btn.btn-secondary(type='button',data-dismiss='modal') 取消
+block pagesrc
+	script(src='/js/user_list.js')

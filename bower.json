@@ -1,0 +1,24 @@
+{
+  "name": "demo4",
+  "version": "0.0.0",
+  "homepage": "https://github.com/happychen998/demo4",
+  "authors": [
+    "happychen998 <happychen998@hotmail.com>"
+  ],
+  "moduleType": [
+    "amd"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "client/bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "bootstrap": "4.0.0-alpha",
+    "holderjs": "~2.9.0"
+  }
+}

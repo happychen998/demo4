@@ -1,0 +1,153 @@
+extends ../layout
+
+block content
+	.container
+		.row.m-a-md
+			h5  
+				span=car.brand
+				span&nbsp;&nbsp; 
+				span=car.series
+				span&nbsp;&nbsp;
+				span=car.carModelName
+				span&nbsp;&nbsp;
+				span=car.yearStyle
+				span&nbsp;&nbsp;
+				span=car.color
+			.row.m-a-md
+					.col-md-6
+							.text-center
+									figure.figure
+											img.img-thumbnail(src=car.imageLogo, alt=car.proTitle)
+											figcaption.figure-caption=car.carModelName
+					.col-md-6
+							dl.dl-horizontal
+									dt.col-sm-3 厂牌
+									dd.col-sm-9=car.brand
+									dt.col-sm-3 车系
+									dd.col-sm-9=car.series
+									dt.col-sm-3 颜色
+									dd.col-sm-9=car.color
+									dt.col-sm-3 年款
+									dd.col-sm-9=car.yearStyle
+									dt.col-sm-3 车型
+									dd.col-sm-9=car.carModelName
+									dt.col-sm-3 排量
+									dd.col-sm-9=car.ml
+									dt.col-sm-3 最大功率
+									dd.col-sm-9=car.kw
+									dt.col-sm-3 变速箱
+									dd.col-sm-9=car.gearbox
+									dt.col-sm-3 指导价(万)
+									dd.col-sm-9=car.guidePrice
+
+			.row
+				ul.nav.nav-tabs
+					li.nav-item
+						a.nav-link.active(href='#tab1',data-toggle='tab') 商品评价
+					li.nav-item
+						a.nav-link(href='#tab2',data-toggle='tab') 商品介绍
+					li.nav-item
+						a.nav-link(href='#tab3',data-toggle='tab') 商品参数
+
+				.tab-content
+					#tab1.tab-pane.active
+						.card
+							.card-block
+								if comments.length > 0
+									h6.card-title.text-success.text-center 本商品已有&nbsp;#{comments.length}&nbsp;条评论，您的评价是我们工作的动力
+								else
+									p.text-info.text-center 本商品还没有人评论，您第一个吧评论吧
+							each comment,index in comments
+								.card-block
+									.media
+										.media-left
+											img.media-object(data-src="holder.js/64x64?theme=social&text=#{comment.from.name}")
+										.media-body
+											h6.media-heading
+												if comment.from.name === loginuser.name
+													span.text-success #{comment.from.name}:
+												else
+													span.text-info #{comment.from.name}:
+											p #{comment.content}
+											p.text-right
+												span.text-muted=moment(comment.meta.createDate).format('YYYY-MM-DD HH:mm:ss')
+												a.replylink.m-l-lg(href='#commentContent',data-commentid='#{comment._id}',data-toid='#{comment.from._id}') 回复
+											if comment.reply && comment.reply.length > 0
+												p.text-right
+													a(data-toggle="collapse" href="#collapsecommentreply#{comment._id}")
+														i.fa.fa-commenting-o &nbsp;#{comment.reply.length}
+
+												.collapse(id='collapsecommentreply#{comment._id}')
+													.card.card-block
+														each reply,replyindex in comment.reply
+															.media
+																.media-left
+																	img.media-object(data-src="holder.js/64x64?theme=social&text=#{reply.from.name}")
+																.media-body
+																	h6.media-heading
+																		if reply.from.name === loginuser.name
+																			span.text-success #{reply.from.name}
+																		else
+																			span.text-info #{reply.from.name}
+																		span.text-muted&nbsp;回复&nbsp;
+																		if reply.to.name === loginuser.name
+																			span.text-success #{reply.to.name} :
+																		else
+																			span.text-info #{reply.to.name} :
+																	p #{reply.content}
+																	p.text-right
+																		span.text-muted=moment(reply.meta.createDate).format('YYYY-MM-DD HH:mm:ss')
+																		a.replylink.m-l-lg(href='#commentContent',data-commentid='#{comment._id}',data-toid='#{reply.from._id}') 回复
+																.media-right
+																	p.text-top.text-muted #{replyindex+1}									
+										.media-right
+											p.text-top.text-muted #{index+1}
+							.card-block
+								h6#replyToTip 我也来说说
+								form(id='commentform',method='post',action='/car/comment')
+									input(type='hidden',name='comment[car]',value=car._id)
+									if loginuser
+										input(type='hidden',name='comment[from]',value=loginuser._id)
+									.form-group
+										textarea#commentContent.form-control(name='comment[content]',row=3,placeholder='来说点啥吧...')
+									if loginuser
+										.row
+											button.btn.btn-primary.pull-right(type='submit') 发表
+									else
+										.row
+											a.btn.btn-primary(href='/signin') 登录后评论
+					#tab2.tab-pane 商品介绍内容
+
+					#tab3.tab-pane
+						.row.m-a-md
+							table.table.table-bordered.table-hover.table-sm
+								tbody
+									tr
+										th.text-info 厂牌
+										td=car.brand
+									tr
+										th.text-info 车系
+										td=car.series
+									tr
+										th.text-info 颜色
+										td=car.color
+									tr
+										th.text-info 年款
+										td=car.yearStyle
+									tr
+										th.text-info 车型
+										td=car.carModelName
+									tr
+										th.text-info 排量
+										td=car.ml
+									tr
+										th.text-info 最大功率
+										td=car.kw
+									tr
+										th.text-info 变速箱
+										td=car.gearbox
+									tr
+										th.text-info 指导价(万)
+										td=car.guidePrice
+block pagesrc
+	script(src='/js/car_detail.js')

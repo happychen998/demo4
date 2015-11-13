@@ -1,0 +1,40 @@
+{
+  "name": "demo4",
+  "version": "1.0.0",
+  "description": "demo4",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/happychen998/demo4"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/happychen998/demo4/issues"
+  },
+  "homepage": "https://github.com/happychen998/demo4",
+  "dependencies": {
+    "bcryptjs": "^2.3.0",
+    "body-parser": "^1.14.1",
+    "connect-mongo": "^0.8.2",
+    "errorhandler": "^1.4.2",
+    "express": "^4.13.3",
+    "express-debug": "^1.1.1",
+    "express-session": "^1.12.0",
+    "jade": "^1.11.0",
+    "moment": "^2.10.6",
+    "mongoose": "^4.1.10",
+    "underscore": "^1.8.3"
+  },
+  "devDependencies": {
+    "browser-sync": "^2.9.11",
+    "gulp": "^3.9.0",
+    "gulp-jshint": "^1.11.2",
+    "gulp-nodemon": "^2.0.4",
+    "jshint-stylish": "^2.0.1",
+    "xmlhttprequest": "^1.8.0"
+  }
+}

@@ -1,0 +1,60 @@
+extends ../layout
+
+block content
+	.container
+		.row.m-a-md
+			.col-sm-6
+				#carousel-example-generic.carousel.slide(data-ride="carousel")
+					ol.carousel-indicators
+						each car,index in cars
+							if index === 0
+								li.active(data-target="#carousel-example-generic",data-slide-to="#{index}")
+							else
+								li(data-target="#carousel-example-generic" data-slide-to="#{index}")
+					.carousel-inner
+							each car,index in cars
+								if index === 0
+									.carousel-item.active
+										.card
+											a(href="/car/#{car._id}")
+												img.img-rounded.center-block.card-img-top(src=car.imageLogo,alt=car.proTitle)
+											.card-block
+												h4.card-title.text-center=car.proTitle
+												span.h3.text-danger=car.guidePrice
+												span.text-danger 万元起
+												span.pull-right #{car.buyNum}人正在购买
+											//- 	a.btn.btn-primary.btn-sm.pull-right(href="/car/#{car._id}") 详情
+											//- .card-footer.text-muted
+											//- 	span #{car.buyNum}人正在购买
+								else
+									.carousel-item
+										.card
+											a(href="/car/#{car._id}")
+												img.img-rounded.center-block.card-img-top(src=car.imageLogo,alt=car.proTitle)
+											.card-block
+												h4.card-title.text-center=car.proTitle
+												span.h3.text-danger=car.guidePrice
+												span.text-danger 万元起
+												span.pull-right #{car.buyNum}人正在购买
+											//- 	a.btn.btn-primary.btn-sm.pull-right(href="/car/#{car._id}") 详情
+											//- .card-footer.text-muted
+											//- 	span #{car.buyNum}人正在购买
+					a.left.carousel-control(href="#carousel-example-generic",role="button",data-slide="prev")
+						span.icon-prev(aria-hidden="true")
+						span.sr-only Previous
+					a.right.carousel-control(href="#carousel-example-generic",role="button",data-slide="next")
+						span.icon-next(aria-hidden="true")
+						span.sr-only Next					
+
+			each car in cars
+				.col-sm-6
+					.card
+						a(href="/car/#{car._id}")
+							img.img-rounded.center-block.card-img-top(src=car.imageLogo,alt=car.proTitle)
+						.card-block
+							h4.card-title.text-center=car.proTitle
+							span.h3.text-danger=car.guidePrice
+							span.text-danger 万元起
+							a.btn.btn-primary.btn-sm.pull-right(href="/car/#{car._id}") 详情
+						.card-footer.text-muted
+							span #{car.buyNum}人正在购买
